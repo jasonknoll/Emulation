@@ -17,6 +17,8 @@ public class Chip8
 
     public bool[] FrameBuffer; // 64x32 array of pixels that are either on or off -- no rgb value
 
+    public ushort Opcode;
+
     private const ushort _startAddress = 0x200;
     
     public Chip8()
