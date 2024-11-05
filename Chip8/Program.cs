@@ -2,4 +2,6 @@
 
 using Chip8;
 
-Console.WriteLine("Hello, World!");
+var chip8 = new Chip8.Chip8();
+
+Console.WriteLine(chip8.Registers[0x01]);
