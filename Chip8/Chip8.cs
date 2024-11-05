@@ -22,7 +22,7 @@ public class Chip8
     public Chip8()
     {
         Memory = new byte[0x1000]; // 0x000 - 0xFFF
-        Registers = new byte[0x10]; // V0 - VF
+        Registers = new byte[16]; // V0 - VF
 
         Stack = new ushort[16];
 
@@ -36,5 +36,10 @@ public class Chip8
         // TODO draw pixels
         
         FrameBuffer = new bool[64 * 32];
+    }
+
+    public void DrawFrameBuffer()
+    {
+        
     }
 }
