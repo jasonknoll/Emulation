@@ -3,7 +3,6 @@
 using Chip8;
 using Terminal.Gui;
 
-var chip8 = new Chip8.Chip8();
 
 Application.Init();
 
