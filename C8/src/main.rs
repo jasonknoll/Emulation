@@ -7,9 +7,9 @@ fn main() {
 struct Chip {}
 
 struct ChipContext {
-    memory: Vec<u8>,
-    V: Vec<u8>,
-    stack: Vec<u16>,
+    memory: [u8; 4096],
+    V: [u8; 16],
+    stack: [u16; 16],
     index: u16,
     PC: u16,
     SP: u16,
