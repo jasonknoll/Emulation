@@ -3,6 +3,9 @@
 use std::fs::File;
 use std::io::Read;
 
+use crossterm::event::{self, Event};
+use ratatui::{text::Text, Frame};
+
 const CHIP_DISPLAY_WIDTH: u8 = 64;
 const CHIP_DISPLAY_HEIGHT: u8 = 32;
 
@@ -16,7 +19,25 @@ fn main() {
 
     chip.load_rom(ROM_PATH);
 
-    chip.hex_dump(&chip.context.memory, 4, Option::from(PROGRAM_START_ADDRESS as usize))
+    chip.hex_dump(&chip.context.memory, 4, Option::from(PROGRAM_START_ADDRESS as usize));
+
+    // ratatui hello world
+    let mut terminal = ratatui::init();
+
+    loop {
+        terminal.draw(draw).expect("failed to draw frame");
+        if matches!(event::read().expect("failed to read event"), Event::Key(_)) {
+            break;
+        }
+    }
+
+    ratatui::restore()
+}
+
+// NOTE example draw function
+fn draw(frame: &mut Frame) {
+    let text = Text::raw("Hello World!");
+    frame.render_widget(text, frame.area());
 }
 
 struct Chip {
@@ -37,7 +58,7 @@ impl Chip {
 
         file.unwrap().read_to_end(&mut buffer).expect("TODO: panic message");
 
-        self.context.memory[0x200..(0x200 + buffer.len())].copy_from_slice(&buffer);
+        self.context.load_into_memory(&buffer);
     }
 
     pub fn hex_dump(&self, buf: &[u8], bytes: usize, start: Option<usize>) {
@@ -90,7 +111,9 @@ impl ChipContext {
     pub fn push() {}
     pub fn pop() {}
 
-    pub fn load_into_memory() {}
+    pub fn load_into_memory(&mut self, buffer: &[u8]) {
+        self.memory[PROGRAM_START_ADDRESS as usize..(PROGRAM_START_ADDRESS as usize + buffer.len())].copy_from_slice(&buffer);
+    }
 }
 
 struct ChipDisplay {}
@@ -98,4 +121,8 @@ impl ChipDisplay {
     pub fn new() {
         todo!("Implement a Ratatui based display")
     }
+
+    // TODO setup window
+    // TODO setup 'pixels'
+    // TODO setup input
 }
