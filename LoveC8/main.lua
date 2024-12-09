@@ -78,6 +78,9 @@ end
 -- List of instructions used for executing Chip-8 code
 instructions = {} 
 
+function nop()
+end
+
 -- MAIN LOVE2D LOOP
 function love.load()
     love.window.setMode(WIN_W, WIN_H)
