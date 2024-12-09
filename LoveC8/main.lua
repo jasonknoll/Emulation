@@ -32,13 +32,17 @@ Chip = {
     I = 0, -- what to do with index pointer?
     SP = 0,
     PC = 0x200,
-    display = ChipDisplay.new()
+    --display = ChipDisplay.new()
 }
 
 -- NOTE might remove chip memory object to make it easier to interface with other components like display and registers
 ChipMemory = {}
 
 function Chip:new()
+    -- local instance = {} 
+    -- setmetatable(instance, self) 
+    -- self.__index = self
+
     -- Init the chip
     for i = 1, RAM_SIZE do
         self.memory[i] = 0
@@ -101,10 +105,10 @@ end
 
 -- MAIN LOVE2D LOOP
 function love.load()
-    love.window.setMode(WIN_W, WIN_H)
+    love.window.setMode(WIN_H, WIN_W)
     -- TODO pick a nice 2-tone palette (B&W for now)
 
-    chip = Chip.new()
+    chip = Chip:new()
 end
 
 function love.update()
