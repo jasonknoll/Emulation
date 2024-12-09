@@ -22,6 +22,7 @@ WIN_H = 640
 WIN_W = 320
 
 RAM_SIZE = 4096 -- In bytes i.e. every 2 hex digits
+REGISTER_COUNT = 16
 
 -- Chip object
 Chip = {
@@ -44,7 +45,7 @@ function Chip:new()
         self.memory[i] = 0
     end
     
-    for i = 1, 16 do
+    for i = 1, REGISTER_COUNT do
         self.v[i] = 0
     end
 end
