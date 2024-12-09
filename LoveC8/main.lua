@@ -21,6 +21,8 @@
 WIN_H = 640
 WIN_W = 320
 
+RAM_SIZE = 4096 -- In bytes i.e. every 2 hex digits
+
 -- Chip object
 Chip = {
     memory = {}, -- 4096 bytes
@@ -28,7 +30,7 @@ Chip = {
     stack = {},
     I = 0,
     SP = 0,
-    PC = 0x200
+    PC = 0x200,
     display = ChipDisplay.new()
 }
 
@@ -37,6 +39,14 @@ ChipMemory = {}
 
 function Chip:new()
     -- Init the chip
+
+    for i = 1, RAM_SIZE do
+        self.memory[i] = 0
+    end
+    
+    for i = 1, 16 do
+        self.v[i] = 0
+    end
 end
 
 -- Working with memory
