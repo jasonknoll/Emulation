@@ -22,13 +22,58 @@ WIN_H = 640
 WIN_W = 320
 
 -- Chip object
-Chip = {}
+Chip = {
+    memory = {}, -- 4096 bytes
+    v = {}, -- need 16 registers
+    stack = {},
+    I = 0,
+    SP = 0,
+    PC = 0x200
+    display = ChipDisplay.new()
+}
 
+-- NOTE might remove chip memory object to make it easier to interface with other components like display and registers
 ChipMemory = {}
-ChipMemory:load()
 
+function Chip:new()
+    -- Init the chip
+end
+
+-- Working with memory
+function Chip:load_rom(rom)
+    -- Insert rom instructions at address 0x200
+end
+
+function Chip:fetch_instruction()
+end
+
+function Chip:decode_instruction()
+end
+
+function Chip:execute_instruction()
+end
+
+ChipDisplay = {}
+
+function ChipDisplay:new()
+end
+
+function ChipDisplay:draw_sprite()
+end
+
+-- Somehow need to turn individual pixels on and off
+function ChipDisplay:draw_pixel()
+end
+
+-- List of instructions used for executing Chip-8 code
+instructions = {} 
+
+-- MAIN LOVE2D LOOP
 function love.load()
     love.window.setMode(WIN_W, WIN_H)
+    -- TODO pick a nice 2-tone palette (B&W for now)
+
+    chip = Chip.new()
 end
 
 function love.update()
