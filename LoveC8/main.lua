@@ -28,8 +28,8 @@ REGISTER_COUNT = 16
 Chip = {
     memory = {}, -- 4096 bytes
     v = {}, -- need 16 registers
-    stack = {},
-    I = 0,
+    stack = {}, -- TODO how big to make stack? 16?
+    I = 0, -- what to do with index pointer?
     SP = 0,
     PC = 0x200,
     display = ChipDisplay.new()
@@ -40,7 +40,6 @@ ChipMemory = {}
 
 function Chip:new()
     -- Init the chip
-
     for i = 1, RAM_SIZE do
         self.memory[i] = 0
     end
@@ -55,12 +54,17 @@ function Chip:load_rom(rom)
     -- Insert rom instructions at address 0x200
 end
 
+-- Get next instruction
 function Chip:fetch_instruction()
+  -- uses the PC to see where the next instruction is at?
+  -- What is the index for? 
 end
 
+-- Match instruction with instruction functions
 function Chip:decode_instruction()
 end
 
+-- Run the instruction's function
 function Chip:execute_instruction()
 end
 
@@ -79,7 +83,11 @@ end
 -- List of instructions used for executing Chip-8 code
 instructions = {} 
 
+-- functions that actually manipulate memory/registers
 function nop()
+end
+
+function jmp()
 end
 
 -- MAIN LOVE2D LOOP
