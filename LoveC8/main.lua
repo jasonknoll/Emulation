@@ -51,7 +51,7 @@ end
 
 -- Working with memory
 function Chip:load_rom(rom)
-    -- Insert rom instructions at address 0x200
+    -- Insert rom instructions at address 0x200 (512)
 end
 
 -- Get next instruction
@@ -68,6 +68,15 @@ end
 function Chip:execute_instruction()
 end
 
+function Chip:push_stack(data)
+    table.insert(self.stack, data)
+end
+
+function Chip:pop_stack()
+    table.remove(self.stack)
+end
+
+-- Display object to interface with Love2D(?)
 ChipDisplay = {}
 
 function ChipDisplay:new()
