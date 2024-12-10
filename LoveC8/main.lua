@@ -18,8 +18,14 @@
 ]]
 
 -- Constants
-WIN_H = 640
-WIN_W = 320
+WIN_W = 640
+WIN_H = 320
+
+PIXEL_SCALE = WIN_W / 64
+
+-- TODO set a nice, 2-tone palette
+-- BG_COLOR = love.math.colorFromBytes(,,)
+-- FG_COLOR = love.math.colorFromBytes(,,)
 
 RAM_SIZE = 4096 -- In bytes i.e. every 2 hex digits
 REGISTER_COUNT = 16
@@ -90,7 +96,12 @@ function ChipDisplay:draw_sprite()
 end
 
 -- Somehow need to turn individual pixels on and off
-function ChipDisplay:draw_pixel()
+function ChipDisplay:draw_pixel(x, y)
+-- Pixel scale x10 when in 640x320
+    love.graphics.rectangle("fill", x*PIXEL_SCALE, y*PIXEL_SCALE, PIXEL_SCALE, PIXEL_SCALE)
+end
+
+function ChipDisplay:clear_pixel(x, y)
 end
 
 -- List of instructions used for executing Chip-8 code
@@ -105,8 +116,7 @@ end
 
 -- MAIN LOVE2D LOOP
 function love.load()
-    love.window.setMode(WIN_H, WIN_W)
-    -- TODO pick a nice 2-tone palette (B&W for now)
+    love.window.setMode(WIN_W, WIN_H)
 
     chip = Chip:new()
 end
