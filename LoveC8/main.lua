@@ -24,8 +24,8 @@ WIN_H = 320
 PIXEL_SCALE = WIN_W / 64
 
 -- TODO set a nice, 2-tone palette
--- BG_COLOR = love.math.colorFromBytes(,,)
--- FG_COLOR = love.math.colorFromBytes(,,)
+BG_COLOR = love.math.colorFromBytes(0,0,0)
+FG_COLOR = love.math.colorFromBytes(255,255,255)
 
 RAM_SIZE = 4096 -- In bytes i.e. every 2 hex digits
 REGISTER_COUNT = 16
@@ -51,7 +51,7 @@ function Chip:new()
 
     -- Init the chip
     for i = 1, RAM_SIZE do
-        self.memory[i] = 0
+        self.memory[i] = 0x00
     end
     
     for i = 1, REGISTER_COUNT do
@@ -66,8 +66,13 @@ end
 
 -- Get next instruction
 function Chip:fetch_instruction()
-  -- uses the PC to see where the next instruction is at?
-  -- What is the index for? 
+    -- uses the PC to see where the next instruction is at?
+    -- What is the index for? 
+    local instruction = self.memory[self.PC]
+
+    if (instruction == "00") then
+        -- check if there are other bytes to the instruction, then run it
+    end
 end
 
 -- Match instruction with instruction functions
@@ -122,6 +127,10 @@ function love.load()
 end
 
 function love.update()
+-- Get next instruction
+    chip.fetch_instruction()
+
+-- Check and execute the fetched instruction
 end
 
 function love.draw()
