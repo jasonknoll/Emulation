@@ -29,6 +29,7 @@ FG_COLOR = love.math.colorFromBytes(255,255,255)
 
 RAM_SIZE = 4096 -- In bytes i.e. every 2 hex digits
 REGISTER_COUNT = 16
+ROM_START_ADR = 0x200
 
 ROM_DIR = "../roms"
 
@@ -64,6 +65,10 @@ end
 -- Working with memory
 function Chip:load_rom(rom)
     -- Insert rom instructions at address 0x200 (512)
+
+    for i = ROM_START_ADR, string.len(rom) do
+        self.memory[i] = rom[i-ROM_START_ADR] -- set equal to nibble/bytes
+    end
 end
 
 -- Get next instruction
@@ -129,6 +134,7 @@ function love.load()
 
     -- Make sure rom loads to correct memory address
     -- Will need extra attention because of Lua's indexing
+    -- Load rom instructions as string of hex numbers
     chip.load_rom(ROMS_DIR .. "rom_name")
 
     -- Upon successful loading of the rom, start fetching the first instruction!
