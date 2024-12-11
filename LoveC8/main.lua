@@ -130,6 +130,8 @@ function love.load()
     -- Make sure rom loads to correct memory address
     -- Will need extra attention because of Lua's indexing
     chip.load_rom(ROMS_DIR .. "rom_name")
+
+    -- Upon successful loading of the rom, start fetching the first instruction!
 end
 
 function love.update()
