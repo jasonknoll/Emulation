@@ -68,8 +68,9 @@ function Chip:load_rom(rom)
 
     -- Each memory address holds two bytes
     -- Because a full instruction is 2 bytes (4 digits), some instructions will use up 2 memory addresses i.e. 0x200 and 0x201
-    for i = ROM_START_ADR, string.len(rom) do
-        self.memory[i] = rom[i-ROM_START_ADR] -- set equal to nibble/bytes
+    -- TODO check accuracy of this
+    for i = ROM_START_ADR, string.len(rom), 2 do
+        self.memory[i] = rom[i-ROM_START_ADR] .. rom[i-ROM_START_ADR+1] -- set equal to bytes
     end
 end
 
