@@ -30,6 +30,8 @@ FG_COLOR = love.math.colorFromBytes(255,255,255)
 RAM_SIZE = 4096 -- In bytes i.e. every 2 hex digits
 REGISTER_COUNT = 16
 
+ROM_DIR = "../roms"
+
 -- Chip object
 Chip = {
     memory = {}, -- 4096 bytes
@@ -124,6 +126,10 @@ function love.load()
     love.window.setMode(WIN_W, WIN_H)
 
     chip = Chip:new()
+
+    -- Make sure rom loads to correct memory address
+    -- Will need extra attention because of Lua's indexing
+    chip.load_rom(ROMS_DIR .. "rom_name")
 end
 
 function love.update()
