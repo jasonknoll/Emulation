@@ -80,6 +80,8 @@ function Chip:fetch_instruction()
     -- What is the index for? 
     local instruction = self.memory[self.PC]
 
+    -- TODO increase PC 
+
     if (instruction == "00") then
         -- check if there are other bytes to the instruction, then run it
     end
@@ -99,6 +101,10 @@ end
 
 function Chip:pop_stack()
     table.remove(self.stack)
+end
+
+function Chip:dump_memory()
+    -- list out the values of all 4096 bytes
 end
 
 -- Display object to interface with Love2D(?)
